@@ -359,4 +359,4 @@ Replace `yourname@gmail.com` with your actual Gmail address.
 | Resource | Link |
 |----------|------|
 | **Live Frontend App** | [VoiceAssistant](https://voiceai-agent.vercel.app/) |
-| **Demo Video** | [Watch on Google Drive](https://drive.google.com/file/d/YOUR_VIDEO_ID/view) |
+| **Demo Video** | [Watch on Google Drive](https://drive.google.com/drive/folders/1ejIPous6BVLb7IBsEUAB5pnHXOQ9Yi82?usp=sharing) |

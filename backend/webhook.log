@@ -5247,3 +5247,2404 @@
         },
 2026-02-21 15:20:11,977 INFO main: Received Vapi event: end-of-call-report
 2026-02-21 15:20:11,977 INFO main: Ignoring event type: end-of-call-report
+2026-02-21 19:13:30,427 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680510021,
+    "type": "status-update",
+    "status": "in-progress",
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        }
+      ],
+      "messagesOpenAIFormatted": [
+        {
+          "role": "system",
+          "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+        }
+      ]
+    },
+    "call": {
+      "id": "019c8063-18a2-7ff3-be1e-430efa83e6b7",
+      "orgId": "5c8e7879-d182-45be-8621-cf82708fed34",
+      "createdAt": "2026-02-21T13:28:23.970Z",
+      "updatedAt": "2026-02-21T13:28:23.970Z",
+      "type": "webCall",
+      "cost": 0,
+      "monitor": {
+        "listenUrl": "wss://phone-call-websocket.aws-us-west-2-backend-production1.vapi.ai/019c8063-18a2-7ff3-be1e-430efa83e6b7/listen",
+        "controlUrl": "https://phone-call-websocket.aws-us-west-2-backend-production1.vapi.ai/019c8063-18a2-7ff3-be1e-430ef
+2026-02-21 19:13:30,474 INFO main: Received Vapi event: status-update
+2026-02-21 19:13:30,474 INFO main: Ignoring event type: status-update
+2026-02-21 19:13:30,478 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680510019,
+    "type": "assistant.started",
+    "newAssistant": {
+      "id": "40f8d85e-98db-4fd0-890e-83b2bb3d383e",
+      "orgId": "5c8e7879-d182-45be-8621-cf82708fed34",
+      "name": "Voice-Scheduler-Agent",
+      "voice": {
+        "model": "tts-1",
+        "voiceId": "shimmer",
+        "provider": "openai"
+      },
+      "createdAt": "2026-02-21T06:53:55.245Z",
+      "updatedAt": "2026-02-21T09:25:51.533Z",
+      "model": {
+        "model": "gpt-4o",
+        "toolIds": [
+          "b10028c1-ddd7-4571-850e-e6f35a98fb89"
+        ],
+        "messages": [
+          {
+            "role": "system",
+            "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+          }
+        ],
+        "provider": "openai",
+        "temperature": 0.4,
+        "tools": [
+          {
+            "id": "b10028c1-ddd7-4571-850e-e6f35a98fb89",
+            "createdAt": "2026-02-21T09:17:08.688Z",
+            "updatedAt": "2026-02-21T12:51:28.099Z",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "parameters": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "start_time"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "default": "",
+                    "description": "The caller's name"
+                  },
+                  "title": {
+                    "type": "string",
+                    "default": "",
+                    "description": "The meeting title or purpose"
+                  },
+                  "end_time": {
+                    "type": "string",
+                    "default": "",
+                    "description": "ISO 8601 datetime string for the meeting end. Defaults to 30 minutes after start if not provided."
+                  },
+                  "start_time": {
+                    "type": "string",
+                    "default
+2026-02-21 19:13:30,487 INFO main: Received Vapi event: assistant.started
+2026-02-21 19:13:30,487 INFO main: Ignoring event type: assistant.started
+2026-02-21 19:13:30,498 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680510123,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 0,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        }
+      ],
+      "messagesOpenAIFormatted": [
+        {
+          "role": "system",
+          "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+        }
+      ]
+    },
+    "call": {
+      "id": "019c8063-18a2-7ff3-be1e-430efa83e6b7",
+      "orgId": "5c8e7879-d182-45be-8621-cf82708fed34",
+      "createdAt": "2026-02-21T13:28:23.970Z",
+      "updatedAt": "2026-02-21T13:28:23.970Z",
+      "type": "webCall",
+      "cost": 0,
+      "monitor": {
+        "listenUrl": "wss://phone-call-websocket.aws-us-west-2-backend-production1.vapi.ai/019c8063-18a2-7ff3-be1e-430efa83e6b7/listen",
+        "controlUrl": "https://phone-call-websocket.aws-us-west-2-backend-production1.v
+2026-02-21 19:13:30,499 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:30,499 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:34,057 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680513971,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+        "time": 1771680504298,
+        "secondsFromStart": 0
+      },
+      {
+        "role": "bot",
+        "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+        "time": 1771680505759,
+        "endTime": 1771680509154,
+        "secondsFromStart": 1.284,
+        "duration": 3395,
+        "source": ""
+      }
+    ],
+    "messagesOpenAIFormatted": [],
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant
+2026-02-21 19:13:34,058 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:13:34,058 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:13:34,483 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680514396,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 0,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        }
+      ],
+      "messagesOpenAIFormatted": [
+        {
+          "role": "system",
+          "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+        },
+        {
+          "role": "assistant",
+          "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+        }
+      ]
+    },
+    "call": {
+      "id": "019c8063-18a2-7ff3-be1e-430ef
+2026-02-21 19:13:34,484 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:34,485 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:36,033 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680515946,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 0,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        }
+      ],
+      "messagesOpenAIFormatted": [
+        {
+          "role": "system",
+          "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+        },
+        {
+          "role": "assistant",
+          "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+        }
+      ]
+    },
+    "call": {
+      "id": "019c8063-18a2-7ff3-be1e-430efa83e6
+2026-02-21 19:13:36,036 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:36,038 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:37,629 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680517544,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "user",
+    "turn": 0,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        }
+      ],
+      "messagesOpenAIFormatted": [
+        {
+          "role": "system",
+          "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+        },
+        {
+          "role": "assistant",
+          "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+        }
+      ]
+    },
+    "call": {
+      "id": "019c8063-18a2-7ff3-be1e-430efa83e6
+2026-02-21 19:13:37,629 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:37,629 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:38,807 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680518715,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+        "time": 1771680504298,
+        "secondsFromStart": 0
+      },
+      {
+        "role": "bot",
+        "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+        "time": 1771680505759,
+        "endTime": 1771680509154,
+        "secondsFromStart": 1.284,
+        "duration": 3395,
+        "source": ""
+      },
+      {
+        "role": "user",
+        "message": "Oh, it's me, Osim Nepal.",
+        "time": 1771680511162,
+        "endT
+2026-02-21 19:13:38,807 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:13:38,808 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:13:40,446 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680520359,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 1,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:13:40,447 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:40,448 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:45,006 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680524919,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+        "time": 1771680504298,
+        "secondsFromStart": 0
+      },
+      {
+        "role": "bot",
+        "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+        "time": 1771680505759,
+        "endTime": 1771680509154,
+        "secondsFromStart": 1.284,
+        "duration": 3395,
+        "s
+2026-02-21 19:13:45,006 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:13:45,006 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:13:45,449 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680525027,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 1,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:13:45,450 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:45,450 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:46,596 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680526504,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 1,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:13:46,597 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:46,599 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:52,357 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680531984,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 2,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:13:52,358 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:52,358 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:52,793 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680532705,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "user",
+    "turn": 2,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:13:52,794 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:52,794 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:53,470 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680533385,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 3,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:13:53,470 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:53,470 INFO main: Ignoring event type: speech-update
+2026-02-21 19:13:59,359 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680538853,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "user",
+    "turn": 3,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:13:59,360 INFO main: Received Vapi event: speech-update
+2026-02-21 19:13:59,361 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:00,088 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680539944,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 2,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:00,089 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:00,089 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:04,670 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680544541,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 2,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:04,670 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:04,671 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:05,125 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680544674,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses c
+2026-02-21 19:14:05,125 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:05,125 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:07,024 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680546885,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 4,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:14:07,025 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:07,026 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:14,971 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680554546,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "user",
+    "turn": 4,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:14:14,971 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:14,971 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:15,420 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680554919,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 s
+2026-02-21 19:14:15,421 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:15,422 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:17,113 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680556953,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 3,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:17,114 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:17,114 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:31,214 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680570750,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 3,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:31,216 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:31,217 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:31,266 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680570721,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. 
+2026-02-21 19:14:31,267 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:31,267 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:32,389 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680572225,
+    "type": "speech-update",
+    "status": "started",
+    "role": "user",
+    "turn": 5,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:14:32,389 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:32,389 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:32,943 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680572774,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      }
+    ],
+    "messages": [
+      {
+        "role": "system",
+        "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm 
+2026-02-21 19:14:32,944 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:32,944 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:33,189 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680573066,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "user",
+    "turn": 5,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "
+2026-02-21 19:14:33,190 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:33,191 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:33,601 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680573409,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "arguments": "{\n  \"name\": \"Osim Nepal\",\n  \"title\": \"Digital Presence for Small Skilled Businesses in Nepal\",\n  \"start_time\": \"2026-02-22T08:00:00\",\n  \"end_time\": \"2026-02-22T09:30:00\"\n}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_bnUQJVQ
+2026-02-21 19:14:33,603 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:33,603 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:33,612 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680573474,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 4,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:33,614 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:33,616 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:33,828 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680573418,
+    "type": "tool-calls",
+    "toolCalls": [
+      {
+        "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+        "type": "function",
+        "function": {
+          "name": "book_appointment",
+          "arguments": {
+            "name": "Osim Nepal",
+            "title": "Digital Presence for Small Skilled Businesses in Nepal",
+            "start_time": "2026-02-22T08:00:00",
+            "end_time": "2026-02-22T09:30:00"
+          }
+        }
+      }
+    ],
+    "toolCallList": [
+      {
+        "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+        "type": "function",
+        "function": {
+          "name": "book_appointment",
+          "arguments": {
+            "name": "Osim Nepal",
+            "title": "Digital Presence for Small Skilled Businesses in Nepal",
+            "start_time": "2026-02-22T08:00:00",
+            "end_time": "2026-02-22T09:30:00"
+          }
+        }
+      }
+    ],
+    "toolWithToolCallList": [
+      {
+        "type": "function",
+        "function": {
+          "name": "book_appointment",
+          "parameters": {
+            "type": "object",
+            "required": [
+              "name",
+              "start_time"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "default": "",
+                "description": "The caller's name"
+              },
+              "title": {
+                "type": "string",
+                "default": "",
+                "description": "The meeting title or purpose"
+              },
+              "end_time": {
+                "type": "string",
+                "default": "",
+                "description": "ISO 8601 datetime string for the meeting end. Defaults to 30 minutes after start if not provided."
+              },
+              "start_time": {
+                "type": "string",
+                "default": "",
+                "description": "ISO 8601 datetime string for the meeting start, e.g. 2026-02-22T08:00:00"
+              }
+            },
+            "additionalProperties": false
+          },
+          "description": "Creates a calendar event once the user provides their name, date/time, and a meeting title."
+        },
+        "async": false,
+        "server": {
+          "url": "https://encinal-allotropically-milissa.ngrok-free.dev/webhook/calendar",
+          "headers": {},
+          "timeoutSeconds": 20
+        },
+        "messages": [
+          {
+            "type": "request-start",
+            "content": "Please hold on.",
+            "contents": [],
+            "conditions": [],
+            "blocking": false
+          },
+          {
+            "type": "request-complete",
+            "content": "All set! I've successfully booked your appointment.",
+            "contents": [],
+            "conditions": [],
+            "endCallAfterSpokenEnabled": true,
+            "role": "assistant"
+          },
+          {
+            "type": "request-failed",
+            "content": "I'm 
+2026-02-21 19:14:33,829 INFO main: Received Vapi event: tool-calls
+2026-02-21 19:14:33,829 INFO main: Tool calls received: [{'id': 'call_bnUQJVQuaMbKR2LqzMFHlOs7', 'type': 'function', 'function': {'name': 'book_appointment', 'arguments': {'name': 'Osim Nepal', 'title': 'Digital Presence for Small Skilled Businesses in Nepal', 'start_time': '2026-02-22T08:00:00', 'end_time': '2026-02-22T09:30:00'}}}]
+2026-02-21 19:14:33,830 INFO main: Processing tool: book_appointment with params: {'name': 'Osim Nepal', 'title': 'Digital Presence for Small Skilled Businesses in Nepal', 'start_time': '2026-02-22T08:00:00', 'end_time': '2026-02-22T09:30:00'}
+2026-02-21 19:14:33,947 INFO googleapiclient.discovery_cache: file_cache is only supported with oauth2client<4.0.0
+2026-02-21 19:14:35,094 INFO main: Event created: https://www.google.com/calendar/event?eid=MnB1bHRqdDc4cGEzMXVxOGdzYm5ucGhuMmMgYXNoaW1uZXBhbDc0N0Bt
+2026-02-21 19:14:35,100 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680574437,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 4,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:35,101 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:35,101 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:35,108 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680574590,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "arguments": "{\n  \"name\": \"Osim Nepal\",\n  \"title\": \"Digital Presence for Small Skilled Businesses in Nepal\",\n  \"start_time\": \"2026-02-22T08:00:00\",\n  \"end_time\": \"2026-02-22T09:30:00\"\n}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_bnUQJVQ
+2026-02-21 19:14:35,109 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:35,109 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:35,517 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680575343,
+    "type": "speech-update",
+    "status": "started",
+    "role": "assistant",
+    "turn": 5,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:35,520 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:35,521 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:36,666 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680576475,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "arguments": "{\n  \"name\": \"Osim Nepal\",\n  \"title\": \"Digital Presence for Small Skilled Businesses in Nepal\",\n  \"start_time\": \"2026-02-22T08:00:00\",\n  \"end_time\": \"2026-02-22T09:30:00\"\n}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_bnUQJVQ
+2026-02-21 19:14:36,667 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:36,669 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:38,529 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680578358,
+    "type": "speech-update",
+    "status": "stopped",
+    "role": "assistant",
+    "turn": 5,
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+            
+2026-02-21 19:14:38,530 INFO main: Received Vapi event: speech-update
+2026-02-21 19:14:38,530 INFO main: Ignoring event type: speech-update
+2026-02-21 19:14:38,581 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680578363,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "arguments": "{\n  \"name\": \"Osim Nepal\",\n  \"title\": \"Digital Presence for Small Skilled Businesses in Nepal\",\n  \"start_time\": \"2026-02-22T08:00:00\",\n  \"end_time\": \"2026-02-22T09:30:00\"\n}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_bnUQJVQ
+2026-02-21 19:14:38,583 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:38,584 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:39,290 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680579120,
+    "type": "conversation-update",
+    "conversation": [
+      {
+        "role": "system",
+        "content": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation."
+      },
+      {
+        "role": "assistant",
+        "content": "Hi there. I'm your scheduling assistant. Who am I speaking with today?"
+      },
+      {
+        "role": "user",
+        "content": "Oh, it's me, Osim Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Nice to meet you. Osam Nepal. When would you like to schedule your meeting?"
+      },
+      {
+        "role": "user",
+        "content": "I'd like to schedule my meeting for February twenty second two thousand twenty six. That's Sunday, uh, on, uh, eight AM in the morning till nine thirty AM in the morning."
+      },
+      {
+        "role": "assistant",
+        "content": "Great. Could you please provide a brief title or purpose for the meeting?"
+      },
+      {
+        "role": "user",
+        "content": "Yes. So the title is digital presence for, uh, small skilled businesses in Nepal."
+      },
+      {
+        "role": "assistant",
+        "content": "Just to confirm, I'm booking a meeting titled digital presence for small skilled businesses in Nepal for Osam Nepal on Sunday, February twenty second two thousand twenty six from eight AM to nine thirty AM. Is that correct?"
+      },
+      {
+        "role": "user",
+        "content": "Yes."
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "call_bnUQJVQuaMbKR2LqzMFHlOs7",
+            "type": "function",
+            "function": {
+              "name": "book_appointment",
+              "arguments": "{\n  \"name\": \"Osim Nepal\",\n  \"title\": \"Digital Presence for Small Skilled Businesses in Nepal\",\n  \"start_time\": \"2026-02-22T08:00:00\",\n  \"end_time\": \"2026-02-22T09:30:00\"\n}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_bnUQJVQ
+2026-02-21 19:14:39,291 INFO main: Received Vapi event: conversation-update
+2026-02-21 19:14:39,291 INFO main: Ignoring event type: conversation-update
+2026-02-21 19:14:42,013 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680581622,
+    "type": "status-update",
+    "status": "ended",
+    "endedReason": "assistant-ended-call-after-message-spoken",
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": 
+2026-02-21 19:14:42,015 INFO main: Received Vapi event: status-update
+2026-02-21 19:14:42,016 INFO main: Ignoring event type: status-update
+2026-02-21 19:14:43,302 INFO main: RAW PAYLOAD: {
+  "message": {
+    "timestamp": 1771680583061,
+    "type": "end-of-call-report",
+    "analysis": {},
+    "artifact": {
+      "messages": [
+        {
+          "role": "system",
+          "message": "## Role\nYou are a professional and friendly Voice Scheduling Assistant. Your sole objective is to book appointments into the user's Google Calendar accurately.\n\n## Operational Flow\n1. Greet the user and ask for their name first.\n2. Ask for the preferred Date and Time of the meeting. \n3. Ask for a brief \"Meeting Title\" or purpose for the call.\n4. Once you have all three pieces of information, read them back to the user to confirm. \n   - Example: \"Just to confirm, I'm booking a 'Budget Review' for John on Friday, Feb 20th at 2:00 PM. Is that correct?\"\n5. After confirmation, trigger the 'book_appointment' tool.\n6. Once the tool returns a success message, let the user know they are all set and say goodbye.\n\n## Rules\n- If the user provides a relative time (e.g., \"Tomorrow at 2\"), convert it to a specific ISO 8601 string for the tool.\n- If the tool returns an error (e.g., \"Slot taken\"), inform the user and ask for an alternative time.\n- Keep responses concise\u2014this is a voice conversation.",
+          "time": 1771680504298,
+          "secondsFromStart": 0
+        },
+        {
+          "role": "bot",
+          "message": "Hi there. I'm your scheduling assistant. Who am I speaking with today?",
+          "time": 1771680505759,
+          "endTime": 1771680509154,
+          "secondsFromStart": 1.284,
+          "duration": 3395,
+          "source": ""
+        },
+        {
+          "role": "user",
+          "message": "Oh, it's me, Osim Nepal.",
+          "time": 1771680511162,
+          "endTime": 1771680513835,
+          "secondsFromStart": 6.687,
+          "duration": 2673,
+          "metadata": {
+            "wordLevelConfidence": [
+              {
+                "word": "Oh,",
+                "start": 1771680511162,
+                "end": 1771680511696.6,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "Oh,"
+              },
+              {
+                "word": "it's",
+                "start": 1771680511696.6,
+                "end": 1771680512231.2,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "it's"
+              },
+              {
+                "word": "me,",
+                "start": 1771680512231.2,
+                "end": 1771680512765.8,
+                "confidence": 1,
+                "language": "",
+                "punctuated_word": "me,"
+              },
+              {
+                "word": "Osim",
+                "start": 1771680512765.8,
+                "end": 1771680513300.4,
+                "confidence": 0.9639,
+                "language": "",
+                "punctuated_word": "Osim"
+              },
+              {
+                "word": "Nepal.",
+                "start": 1771680513300.4,
+          
+2026-02-21 19:14:43,307 INFO main: Received Vapi event: end-of-call-report
+2026-02-21 19:14:43,308 INFO main: Ignoring event type: end-of-call-report
