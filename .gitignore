@@ -1,0 +1,7 @@
+/backend/creds.json
+
+/backend/.env
+
+myenv/*
+
+.vscode/*

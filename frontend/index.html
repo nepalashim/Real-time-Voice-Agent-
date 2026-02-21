@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice AI Scheduling Agent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Background blobs ─────────────────────────────── -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- ── Main card ────────────────────────────────────── -->
+  <div class="card">
+    <h1>Voice Scheduling Agent</h1>
+    <p class="subtitle">
+      Click the phone button at the bottom-right to start a voice call.<br />
+      The assistant will help you book an appointment on Google&nbsp;Calendar.
+    </p>
+
+    <!-- Status -->
+    <div id="status" class="status">Ready — click the phone button ↘</div>
+
+    <!-- Live transcript -->
+    <div id="transcript-box" class="transcript-box hidden">
+      <h3>Transcript</h3>
+      <div id="transcript-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Vapi Widget (official CDN – handles WebRTC/calling) ── -->
+  <script>
+    var vapiInstance = null;
+
+    var buttonConfig = {
+      position: "bottom-right",
+      offset: "40px",
+      width: "60px",
+      height: "60px",
+      idle: {
+        color: "rgb(108, 99, 255)",
+        type: "pill",
+        title: "Call Assistant",
+        subtitle: "Book an appointment",
+        icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone.svg",
+      },
+      loading: {
+        color: "rgb(245, 158, 11)",
+        type: "pill",
+        title: "Connecting...",
+        subtitle: "Please wait",
+        icon: "https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg",
+      },
+      active: {
+        color: "rgb(239, 68, 68)",
+        type: "pill",
+        title: "Call in progress",
+        subtitle: "Click to end call",
+        icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg",
+      },
+    };
+
+    (function (d, t) {
+      var g = document.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+      g.src =
+        "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+      g.defer = true;
+      g.async = true;
+      s.parentNode.insertBefore(g, s);
+
+      g.onload = function () {
+        vapiInstance = window.vapiSDK.run({
+          apiKey: "099b5e28-7012-48bf-8d16-bc6ab173dc32",
+          assistant: "40f8d85e-98db-4fd0-890e-83b2bb3d383e",
+          config: buttonConfig,
+        });
+
+        if (vapiInstance) {
+          initTranscript(vapiInstance);
+        }
+      };
+    })(document, "script");
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

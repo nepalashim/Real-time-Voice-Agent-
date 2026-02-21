@@ -1,0 +1,153 @@
+/* ── Reset & Base ──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #6c63ff;
+  --primary-dark: #5a52e0;
+  --bg-start: #0f0f19;
+  --bg-end: #1e1e32;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text: #e4e4ed;
+  --text-muted: #8888a4;
+  --green: #34d399;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Background blobs ─────────────────────────────────── */
+.blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+.blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--primary);
+  top: -120px;
+  left: -100px;
+}
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: #ff6584;
+  bottom: -80px;
+  right: -100px;
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+.card {
+  position: relative;
+  z-index: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 36px;
+}
+
+/* ── Call button removed – using Vapi widget button ───── */
+
+/* ── Status ───────────────────────────────────────────── */
+.status {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  transition: color 0.3s;
+}
+.status.live {
+  color: var(--green);
+}
+
+/* ── Transcript ───────────────────────────────────────── */
+.transcript-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  max-height: 260px;
+  overflow-y: auto;
+  text-align: left;
+}
+.transcript-box.hidden {
+  display: none;
+}
+.transcript-box h3 {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.transcript-entry {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  padding: 6px 0;
+}
+.transcript-entry + .transcript-entry {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+.transcript-entry .role-icon {
+  margin-right: 6px;
+}
+.transcript-entry.assistant {
+  color: var(--primary);
+}
+.transcript-entry.user {
+  color: var(--text);
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+.transcript-box::-webkit-scrollbar {
+  width: 4px;
+}
+.transcript-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+.transcript-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
