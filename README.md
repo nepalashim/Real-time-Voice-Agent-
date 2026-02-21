@@ -350,3 +350,13 @@ Replace `yourname@gmail.com` with your actual Gmail address.
    ```
 4. Click **"Call Assistant"**, allow microphone access, and test the full conversation flow.
 5. Verify the event appears on your [Google Calendar](https://calendar.google.com).
+
+
+### Backend was deployed on Render on a free tier cause it to be slow and problematic so it's better to Clone the project and run Locally as instruction  given above, Still the Frontend just UI is deployed in Vercel as shown below: 
+
+## Live Demo
+
+| Resource | Link |
+|----------|------|
+| **Live Frontend App** | [VoiceAssistant](https://voiceai-agent.vercel.app/) |
+| **Demo Video** | [Watch on Google Drive](https://drive.google.com/file/d/YOUR_VIDEO_ID/view) |
