@@ -228,3 +228,6 @@ Go to [Google Calendar](https://calendar.google.com) and look for:
 | `VAPI_PUBLIC_KEY` | Your Vapi public API key |
 | `VAPI_ASSISTANT_ID` | Your Vapi assistant ID |
 | `BACKEND_URL` | ngrok URL + `/webhook/calendar` (used as fallback if not set in Vapi dashboard) |
+
+
+Vapi-Server-URL when ran locally: https://encinal-allotropically-milissa.ngrok-free.dev/webhook/calendar
